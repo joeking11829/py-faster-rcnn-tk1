@@ -48,7 +48,7 @@ def locate_cuda():
 
     cudaconfig = {'home':home, 'nvcc':nvcc,
                   'include': pjoin(home, 'include'),
-                  'lib64': pjoin(home, 'lib64')}
+                  'lib': pjoin(home, 'lib')}
     for k, v in cudaconfig.iteritems():
         if not os.path.exists(v):
             raise EnvironmentError('The CUDA %s path could not be located in %s' % (k, v))
@@ -123,15 +123,15 @@ ext_modules = [
     ),
     Extension('nms.gpu_nms',
         ['nms/nms_kernel.cu', 'nms/gpu_nms.pyx'],
-        library_dirs=[CUDA['lib64']],
+        library_dirs=[CUDA['lib']],
         libraries=['cudart'],
         language='c++',
-        runtime_library_dirs=[CUDA['lib64']],
+        runtime_library_dirs=[CUDA['lib']],
         # this syntax is specific to this build system
         # we're only going to use certain compiler args with nvcc and not with gcc
         # the implementation of this trick is in customize_compiler() below
         extra_compile_args={'gcc': ["-Wno-unused-function"],
-                            'nvcc': ['-arch=sm_35',
+                            'nvcc': ['-arch=sm_30',
                                      '--ptxas-options=-v',
                                      '-c',
                                      '--compiler-options',
