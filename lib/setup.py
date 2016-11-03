@@ -122,7 +122,8 @@ ext_modules = [
         include_dirs = [numpy_include]
     ),
     Extension('nms.gpu_nms',
-        ['nms/nms_kernel.cu', 'nms/gpu_nms.pyx'],
+        #['nms/nms_kernel.cu', 'nms/gpu_nms.pyx'],
+        ['nms/nms_kernel.cu', 'nms/gpu_nms.cpp'],
         library_dirs=[CUDA['lib']],
         libraries=['cudart'],
         language='c++',

@@ -1,3 +1,5 @@
 *.c
 *.cpp
 *.so
+
+!gpu_nms.cpp
